@@ -2,7 +2,7 @@ const Todos = require('../models').Todo;
 const TodoItem = require('../models').TodoItem;
 
 module.exports = {
-    create(req, res){
+    create(req, res) {
         return Todos
             .create({
                 title: req.body.title,
@@ -10,18 +10,18 @@ module.exports = {
             .then(todo => res.status(201).send(todo))
             .catch(error => res.status(400).send(error));
     },
-    list(req, res){
+    list(req, res) {
         return Todos
             .findAll({
                 include: [{
-                   model: TodoItem,
-                   as: 'todoItems',
+                    model: TodoItem,
+                    as: 'todoItems',
                 }],
             })
             .then(todos => res.status(200).send(todos))
             .catch(error => res.status(400).send(error))
     },
-    retrieve(req, res){
+    retrieve(req, res) {
         return Todos
             .findById(req.params.todoId, {
                 include: [{
@@ -30,7 +30,7 @@ module.exports = {
                 }],
             })
             .then(todo => {
-                if(!todo) {
+                if (!todo) {
                     return res.status(404).send({
                         message: 'Todo Not Found',
                     });
