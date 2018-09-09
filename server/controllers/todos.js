@@ -1,4 +1,5 @@
 const Todos = require('../models').Todo;
+const TodoItem = require('../models').TodoItem;
 
 module.exports = {
     create(req, res){
@@ -11,7 +12,12 @@ module.exports = {
     },
     list(req, res){
         return Todos
-            .all()
+            .findAll({
+                include: [{
+                   model: TodoItem,
+                   as: 'todoItems',
+                }],
+            })
             .then(todos => res.status(200).send(todos))
             .catch(error => res.status(400).send(error))
     },
