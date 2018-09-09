@@ -1,9 +1,9 @@
-const Todos = require('../models').Todo;
+const Todo = require('../models').Todo;
 const TodoItem = require('../models').TodoItem;
 
 module.exports = {
     create(req, res) {
-        return Todos
+        return Todo
             .create({
                 title: req.body.title,
             })
@@ -11,7 +11,7 @@ module.exports = {
             .catch(error => res.status(400).send(error));
     },
     list(req, res) {
-        return Todos
+        return Todo
             .findAll({
                 include: [{
                     model: TodoItem,
@@ -22,7 +22,7 @@ module.exports = {
             .catch(error => res.status(400).send(error))
     },
     retrieve(req, res) {
-        return Todos
+        return Todo
             .findById(req.params.todoId, {
                 include: [{
                     model: TodoItem,
@@ -40,7 +40,7 @@ module.exports = {
             .catch(error => res.status(400).send(error));
     },
     update(req, res) {
-        return Todos
+        return Todo
             .findById(req.params.todoId, {
                 include: [{
                     model: TodoItem,
@@ -63,7 +63,7 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
     },
     destroy(req, res) {
-        return Todos
+        return Todo
             .findById(req.params.todoId)
             .then(todo => {
                 if (!todo) {
